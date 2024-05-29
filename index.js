@@ -22,6 +22,10 @@ const server = http.createServer(app);
     res.send('Página testeeeeeeeeeeeeee!!!')
   });
 
+//Conexão mongodb
+  require('./mongodb');  
+
+
 server.listen(PORT, ()=>{
     console.log(`Servidor rodando na porta: ${PORT}`);
 });
