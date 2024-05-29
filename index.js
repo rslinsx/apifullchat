@@ -39,6 +39,29 @@ require('./mongodb');
   });
 });
 
+
+//rota que cadastra efetivamente o contato no banco de dados de cada usuário no mongodb com nome 'email + contacts'
+app.post("/crm/cadastrar", (req, res)=>{
+  const novoContato = mongoose.model(`${req.body.emailUserAtual}contact`, crmSchema);
+  novoContato.findOne({email: req.body.email}).then((data)=>{
+
+  if(data === null){
+  const novoNovoContato = new novoContato({
+     email: req.body.email,
+     firstname: req.body.nome,
+     lastname: req.body.ultimoNome,
+  });
+
+  novoNovoContato.save().then(()=>{
+     res.json('Usuário cadastrado com sucesso!');
+  }).catch((err)=>{
+     console.log(err)
+  })}else{
+    res.json('Esse email já está incluído no seu CRM')
+   }})});
+
+
+
   // < -------------------------------------------------------------------------------------------------------------------------------------- >   
   //rota de registro de novo usuario
   app.post("/registro", (req, res)=>{
