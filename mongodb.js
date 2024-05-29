@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
-
+require('dotenv').config()
 
 const mongoUrl = process.env.MONGODB_URL;
 
-
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
+mongoose.connect(mongoUrl).then(()=>{
     console.log('Conectado com sucesso ao mongodb');
 }).catch((err)=>{
     console.log('Erro ao conectar ao mongodb: '+ err);

@@ -3,6 +3,7 @@ const app = express();
 const http = require('http');
 const cors = require('cors');
 const PORT = process.env.PORT || 8081;
+require('dotenv').config()
 
 //Config
     // Body Parser(o próprio express agora tem essa função, daí nao precisa importar body-parser)
