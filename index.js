@@ -39,6 +39,27 @@ require('./mongodb');
   });
 });
 
+// Carrega os contatos do CRM de cada usuário enviando ali no req body uma template string com `${email}contacts`
+app.post('/crm/contatos', (req, res)=>{
+  const todosUsuariosDeUmEmail = mongoose.model(req.body.crmBuscado, crmSchema);
+  todosUsuariosDeUmEmail.find({}).then((data)=>{
+    res.json(data);
+  }).catch((err)=>{
+    console.log(err);
+  })
+});
+
+
+//Rota que verifica login e senha - a logica e a mensagem pra dizer 'senha ou usuario incorretos' coloquei no front
+app.post('/login', (req, res)=>{
+newUser.findOne(req.body).then((data)=>{
+  res.json(data);
+}).catch((err)=>{
+  console.log('Deu esse erro: '+err);
+});
+
+});
+
 //< ---------------------------------------------------------------------------------------------- >
   //Rotas CRM
   //rota para procurar contatos no CRM para cadastrar 
