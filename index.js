@@ -39,6 +39,31 @@ require('./mongodb');
   });
 });
 
+  // < -------------------------------------------------------------------------------------------------------------------------------------- >   
+  //rota de registro de novo usuario
+  app.post("/registro", (req, res)=>{
+    newUser.findOne({email: req.body.email}).then((data)=>{
+      if (data === null) {
+        const novoRegistro = new newUser({
+          email: req.body.email,
+          senha: req.body.senha,
+          firstname: req.body.nome,
+          lastname: req.body.sobrenome,
+          chave: true
+          });
+
+          novoRegistro.save().then(()=>{
+          res.json('Usuário cadastrado com sucesso')
+          }).catch((err)=>{
+          console.log(err)
+          })}else{
+            res.json('Já há um cadastro com esse email!')
+          }
+
+          }).catch((err)=>{
+      console.log(err);
+    })});
+
 server.listen(PORT, ()=>{
     console.log(`Servidor rodando na porta: ${PORT}`);
 });
