@@ -39,6 +39,27 @@ require('./mongodb');
   });
 });
 
+//< ---------------------------------------------------------------------------------------------- >
+  //Rotas CRM
+  //rota para procurar contatos no CRM para cadastrar 
+  app.post("/crm/procurar", (req, res)=>{
+    newUser.findOne(req.body).then((data)=>{
+      res.json(data);
+    }).catch((err)=>{
+      console.log(err);
+    });
+});
+
+//Rota pra procurar contatos no CRM de quem pesquisou para iniciar conversa
+app.post("/crm/procurarcontato", (req, res)=>{
+    const crmDoContatoAtual = mongoose.model(`${req.body.emailUserAtual}contact`, crmSchema);
+    crmDoContatoAtual.findOne({email: req.body.emailProcuradoCrm}).then((data)=>{
+      res.json(data);
+    }).catch((err)=>{
+      console.log(err);
+    })
+})
+
 
 //rota que cadastra efetivamente o contato no banco de dados de cada usuário no mongodb com nome 'email + contacts'
 app.post("/crm/cadastrar", (req, res)=>{
