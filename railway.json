@@ -1,0 +1,5 @@
+{
+    "build": {
+      "nixpacksVersion": "1.17.0"
+    }
+  }
